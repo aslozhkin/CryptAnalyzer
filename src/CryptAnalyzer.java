@@ -6,24 +6,26 @@ public class CryptAnalyzer {
         Menu menu = new Menu();
         CryptService cryptService = new CryptService();
         BruteforceService bruteforceService = new BruteforceService();
+        Validator validator = new Validator();
 
         menu.printOptions();
 
         Scanner scanner = new Scanner(System.in);
-        int option = scanner.nextInt();
+        Options option = Options.getOptionByValue(scanner.nextInt());
+        validator.validateOption(option);
 
         switch (option) {
-            case 1 -> {
+            case ENCRYPT -> {
                 menu.printEnterKey();
                 int key = scanner.nextInt();
                 cryptService.encrypt(key);
             }
-            case 2 -> {
+            case DECRYPT -> {
                 menu.printEnterKey();
                 int key = scanner.nextInt();
                 cryptService.decrypt(key);
             }
-            case 3 -> {
+            case BRUTEFORCE -> {
                 int probableKey = bruteforceService.bruteforce();
                 if (probableKey != 0) {
                     System.out.println("Вероятный ключ: " + probableKey);

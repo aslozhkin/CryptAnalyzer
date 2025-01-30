@@ -3,6 +3,7 @@ import java.util.List;
 
 public class BruteforceService {
     private static final int DUMMY_KEYS_COUNT = 100;
+    public static final String FILE_IS_EMPTY_EXC_MESSAGE = "Файл с зашифрованными словами не может быть пустым";
 
     private FileManager fileManager = new FileManager();
     private CryptService cryptService = new CryptService();
@@ -16,9 +17,13 @@ public class BruteforceService {
         dictionaryStrings = fileManager.readFileAsStrings(Constants.DICTIONARY_PATH);
     }
 
+    /**
+     * Метод для определения возможных ключей
+     * @return возможный ключ
+     */
     public int bruteforce() {
         if (encryptedStrings.isEmpty()) {
-            throw new IllegalArgumentException("Файл с зашифрованными словами не может быть пустым");
+            throw new IllegalArgumentException(FILE_IS_EMPTY_EXC_MESSAGE);
         }
         // Брутфорсим по 100 ключей пока не упремся в максимальный Integer
         int startPosition = 1;
@@ -47,6 +52,12 @@ public class BruteforceService {
         return 0;
     }
 
+    /**
+     * Метод для заполнения списка ключами и перебора
+     * @param startValue начальная позиция ключа
+     * @param endValue конечная позиция ключа
+     * @return возможный ключ
+     */
     private int fillKeysAndBruteforce(int startValue, int endValue) {
         for (int i = startValue; i <= endValue; i++) {
             keys.add(i);
@@ -54,6 +65,11 @@ public class BruteforceService {
         return bruteforce(keys);
     }
 
+    /**
+     * Меторд для перебора по списку ключей
+     * @param keys список ключей
+     * @return возможный ключ
+     */
     private int bruteforce(List<Integer> keys) {
         int possibleKey = 0;
         for (Integer key : keys) {
