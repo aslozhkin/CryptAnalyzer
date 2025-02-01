@@ -19,6 +19,6 @@ public enum Options {
         return Arrays.stream(Options.values())
                 .filter(o -> o.getValue() == value)
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new IllegalArgumentException("Опции: " + value + " не существует, необходимо выбрать из предложенных"));
     }
 }

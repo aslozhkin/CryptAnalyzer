@@ -6,13 +6,11 @@ public class CryptAnalyzer {
         Menu menu = new Menu();
         CryptService cryptService = new CryptService();
         BruteforceService bruteforceService = new BruteforceService();
-        Validator validator = new Validator();
 
         menu.printOptions();
 
         Scanner scanner = new Scanner(System.in);
         Options option = Options.getOptionByValue(scanner.nextInt());
-        validator.validateOption(option);
 
         switch (option) {
             case ENCRYPT -> {
